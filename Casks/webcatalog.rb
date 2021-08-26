@@ -1,12 +1,26 @@
 cask "webcatalog" do
-  version "31.1.1"
-  sha256 "f3b2b35ed0c5d0e5ebf1daf50ac0d1bfabce43bcfc87b9f74c5a0c576eb2ced1"
+  version "36.3.0"
 
-  url "https://github.com/webcatalog/webcatalog-app/releases/download/v#{version}/WebCatalog-#{version}.dmg",
-      verified: "github.com/webcatalog/webcatalog-app/"
+  if Hardware::CPU.intel?
+    sha256 "41089e41e73b9485a9fd72e0d496ec1595d212c673b2a951c9f3a62e0cc4eaa5"
+
+    url "https://github.com/webcatalog/webcatalog-app/releases/download/v#{version}/WebCatalog-#{version}.dmg",
+        verified: "github.com/webcatalog/webcatalog-app/"
+  else
+    sha256 "0662a4a6378856511c4b27012c69beb1aa8773bcaf23847515e2fa002c66d38d"
+
+    url "https://github.com/webcatalog/webcatalog-app/releases/download/v#{version}/WebCatalog-#{version}-arm64.dmg",
+        verified: "github.com/webcatalog/webcatalog-app/"
+  end
+
   name "WebCatalog"
   desc "Tool to run web apps like desktop apps"
   homepage "https://webcatalog.app/"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
 
   auto_updates true
 

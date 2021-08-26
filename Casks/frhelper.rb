@@ -1,12 +1,13 @@
 cask "frhelper" do
-  version "4.0.2,1051"
-  sha256 "befa3d89703b1a299741add6b3a8a6507d60736d679d925d6e9f07a2fe3cf158"
+  version "4.1.2,1060"
+  sha256 "3dd45d4f21d69de27a47ce4cf56fdbca1551d18cd4903d8565d0f7b4a0ffd8de"
 
   url "https://static.frdic.com/pkg/fhmac.dmg?v=#{version.after_comma}",
       verified:   "static.frdic.com/",
       user_agent: :fake
   name "Frhelper"
   name "法语助手"
+  desc "French-Chinese dictionary and learning tool"
   homepage "https://www.eudic.net/v4/fr/app/frhelper"
 
   livecheck do

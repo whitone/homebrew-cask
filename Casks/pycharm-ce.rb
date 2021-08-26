@@ -1,29 +1,30 @@
 cask "pycharm-ce" do
-  version "2020.3.5,203.7717.81"
+  version "2021.2,212.4746.96"
 
   if Hardware::CPU.intel?
-    sha256 "c6d839f4e33f532873ed54743eb3590d7e9adf257afd6067fbd60654483bd692"
+    sha256 "877d539128acd5c99346fd4d33559e19e09044e785fb24d5a76bb7f705f8e3ec"
     url "https://download.jetbrains.com/python/pycharm-community-#{version.before_comma}.dmg"
   else
-    sha256 "1ba1a5d1dd29ed4dccd5c2c0ae6acb6eca562afcd9f11a78be3533db1642fe09"
+    sha256 "572b7a54a552481d2932042dbf9fb53a4d5eba18c2cc7bf65c316e2c6f9867f2"
     url "https://download.jetbrains.com/python/pycharm-community-#{version.before_comma}-aarch64.dmg"
   end
 
   name "Jetbrains PyCharm Community Edition"
   name "PyCharm CE"
-  desc "Free and open-source IDE for Python programming - Community Edition"
+  desc "IDE for Python programming - Community Edition"
   homepage "https://www.jetbrains.com/pycharm/"
 
   livecheck do
     url "https://data.services.jetbrains.com/products/releases?code=PCC&latest=true&type=release"
     strategy :page_match do |page|
-      version = page.match(/"version":"(\d+(?:\.\d+)*)/i)
-      build = page.match(/"build":"(\d+(?:\.\d+)*)/i)
-      "#{version[1]},#{build[1]}"
+      JSON.parse(page)["PCC"].map do |release|
+        "#{release["version"]},#{release["build"]}"
+      end
     end
   end
 
   auto_updates true
+  depends_on macos: ">= :high_sierra"
 
   app "PyCharm CE.app"
 
